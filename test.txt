@@ -1,0 +1,4 @@
+2,3, slupek1
+2,5, slupek2
+2,6, slupek3
+2,10, slupek4
