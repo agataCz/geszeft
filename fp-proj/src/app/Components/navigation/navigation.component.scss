@@ -1,23 +1,21 @@
-
-.navigation{
+.navigation {
   background-color: #325d88;
   width: 100%;
   overflow: auto;
+  a {
+    float: left;
+    padding: 12px;
+    color: lightgray;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+  }
+  a :hover {
+    color: white;
+  }
 }
 
-.navigation a {
-  float: left;
-  padding: 12px;
-  color: lightgray;
-  text-decoration: none;
-  font-size: 14px;
-  text-align: center;
-}
-
-.navigation a :hover{
-  color: white;
-}
-.topnav-right{
+.topnav-right {
   text-align: center;
   padding: 12px;
 }
@@ -30,5 +28,3 @@
   text-align: center;
   border-radius: 5px;
 }
-
-
