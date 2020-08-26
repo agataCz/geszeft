@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../models/Product'
+import { LoadingService } from '../../../loading.service'
 
 @Component({
   selector: 'app-products-list',
@@ -15,7 +16,13 @@ export class ProductsListComponent implements OnInit {
     { id: "4", name: "Name4", description: "Description4", price: 4},
   ]
 
-  ngOnInit(): void {
+  constructor(
+    public loadingService: LoadingService
+  ) {
+  }
+
+  async ngOnInit(): Promise<void> {
+
   }
 
   selectProduct(): void {}
