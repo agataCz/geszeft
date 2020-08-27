@@ -7,7 +7,7 @@ import { LoadingService } from './services/loading.service'
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   providers:[
     ProductService,

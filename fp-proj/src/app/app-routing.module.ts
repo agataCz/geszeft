@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink'
 
-import { HomeComponent } from './Components/home/home.component';
-import { ContactComponent} from './Components/contact/contact.component'
-import { PageNotFoundComponent} from './Components/page-not-found/page-not-found.component'
+import { HomeComponent } from './main/home/home.component';
+import { ContactComponent} from './main/contact/contact.component'
+import { PageNotFoundComponent} from './main/page-not-found/page-not-found.component'
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -24,4 +24,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class GeszeftRoutingModule { }
+export class AppRoutingModule { }

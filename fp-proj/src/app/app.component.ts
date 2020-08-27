@@ -3,11 +3,11 @@ import { Router, RouterEvent, NavigationStart, NavigationEnd } from '@angular/ro
 import { LoadingService } from './core/services/loading.service'
 
 @Component({
-  selector: 'geszeft-root',
-  templateUrl: './geszeft.component.html',
-  styleUrls: ['./geszeft.component.scss']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class GeszeftComponent {
+export class AppComponent {
   title = 'fp-proj';
 
   constructor(

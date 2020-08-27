@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QuicklinkModule } from 'ngx-quicklink';
 
-
-
 @NgModule({
   declarations: [],
   imports: [
@@ -14,4 +12,4 @@ import { QuicklinkModule } from 'ngx-quicklink';
     QuicklinkModule
   ]
 })
-export class SharedQuicklinkModuleModule { }
+export class SharedModule { }

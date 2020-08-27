@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedQuicklinkModuleModule } from '../shared-quicklink-module/shared-quicklink-module.module'
+import { SharedModule } from '../../shared/SharedModule'
 
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsListComponent } from './products-list/products-list.component';
@@ -13,7 +13,7 @@ import { CoreModule } from 'src/app/core/core.module';
   imports: [
     CommonModule,
     ProductsRoutingModule,
-    SharedQuicklinkModuleModule,
+    SharedModule,
     CoreModule
   ]
 })
