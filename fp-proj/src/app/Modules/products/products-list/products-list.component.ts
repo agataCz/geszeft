@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../models/Product'
-import { LoadingService } from '../../../loading.service'
+import { LoadingService } from '../../../core/services/loading.service'
+import { ProductService } from '../../../core/services/product.service'
+import { Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products-list',
@@ -9,19 +12,17 @@ import { LoadingService } from '../../../loading.service'
 })
 export class ProductsListComponent implements OnInit {
 
-  public products: Product[]=[
-    { id: "1", name: "Name1", description: "Description1", price: 1},
-    { id: "2", name: "Name2", description: "Description2", price: 2},
-    { id: "3", name: "Name3", description: "Description3", price: 0},
-    { id: "4", name: "Name4", description: "Description4", price: 4},
-  ]
+  products$: Observable<Product[]>;
 
-  constructor(
-    public loadingService: LoadingService
+   constructor(
+    public loadingService: LoadingService,
+    private productService: ProductService
   ) {
+
+    this.products$= this.productService.getAllProducts().pipe(shareReplay());
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
 
   }
 
@@ -29,5 +30,9 @@ export class ProductsListComponent implements OnInit {
 
   isPriceValid(price: number): boolean{
     return price === 0
+  }
+
+  getProducts(){
+    this.productService.getAllProducts
   }
 }

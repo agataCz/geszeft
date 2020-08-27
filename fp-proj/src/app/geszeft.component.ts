@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterEvent, NavigationStart, NavigationEnd } from '@angular/router';
-import { LoadingService } from './loading.service'
+import { LoadingService } from './core/services/loading.service'
 
 @Component({
   selector: 'geszeft-root',

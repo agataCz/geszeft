@@ -13,12 +13,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products" [ngClass]="{'text-danger': isPriceValid(product.price) }">
+        <tr *ngFor="let product of products$ | async" [ngClass]="{'text-danger': isPriceValid(product.price) }">
           <td>{{ product.id }}</td>
           <td> {{ product.name }}</td>
           <td> {{ product.price | currency }}</td>
           <td>
-            <button class="btn btn-primary" (click)="selectProduct(contact)"> Show details</button>
+            <button class="btn btn-primary" routerLink="{{product.id}}" (click)="selectProduct(product)"> Show details</button>
           </td>
         </tr>
       </tbody>

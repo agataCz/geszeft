@@ -9,6 +9,7 @@ import { ContactComponent } from './Components/contact/contact.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { NavigationComponent } from './Components/navigation/navigation.component';
 import { GeszeftRoutingModule } from './geszeft-routing.module';
+import { CoreModule } from './core/core.module'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { GeszeftRoutingModule } from './geszeft-routing.module';
   imports: [
     BrowserModule,
     GeszeftRoutingModule,
-    FormsModule
+    FormsModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [GeszeftComponent]
