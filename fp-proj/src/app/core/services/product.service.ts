@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Product } from '../../models/Product'
 import { Observable, of } from 'rxjs'
 import { find, map } from 'rxjs/operators'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  private productsUrl = 'api/products';
 
   private products: Product[]=[
     { id: "1", name: "Name1", description: "Description1", price: 1},
@@ -16,10 +18,10 @@ export class ProductService {
   ];
   private products$: Observable<Product[]>=of(this.products);
 
-  constructor() { }
+  constructor(private httpClient: HttpClient,) { }
 
   getAllProducts(): Observable<Product[]>{
-    return this.products$;
+    return this.httpClient.get<Product[]>(this.productsUrl)
   }
 
   getProductById(id: string): Observable<Product>{
