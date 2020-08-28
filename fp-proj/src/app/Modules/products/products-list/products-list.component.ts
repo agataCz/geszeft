@@ -20,6 +20,7 @@ export class ProductsListComponent implements OnInit {
   ) {
 
     this.products$= this.productService.getAllProducts().pipe(shareReplay());
+    this.productService.fetchProducts();
   }
 
   ngOnInit(): void {
