@@ -19,6 +19,36 @@
     }
   },
   "contact": [
+    {
+      "email": "aczupryn@future-processing.com",
+      "message": "test1",
+      "id": 1
+    },
+    {
+      "email": "sdd@op.pl",
+      "message": "test1",
+      "id": 2
+    },
+    {
+      "email": "agata.czupryn@gmail.com",
+      "message": "test666",
+      "id": 3
+    },
+    {
+      "email": "agata.czupryn@gmail.com",
+      "message": "test6",
+      "id": 4
+    },
+    {
+      "email": null,
+      "message": "test5",
+      "id": 5
+    },
+    {
+      "email": "agata.czupryn@gmail.com",
+      "message": "test67",
+      "id": 6
+    }
   ],
   "products": [
     {

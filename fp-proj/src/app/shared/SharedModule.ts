@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QuicklinkModule } from 'ngx-quicklink';
+import { ValidationComponent } from './validation/validation.component'
 
 @NgModule({
-  declarations: [],
+  declarations: [ValidationComponent],
   imports: [
     CommonModule,
     QuicklinkModule
   ],
   exports: [
-    QuicklinkModule
+    QuicklinkModule,
+    ValidationComponent
   ]
 })
 export class SharedModule { }

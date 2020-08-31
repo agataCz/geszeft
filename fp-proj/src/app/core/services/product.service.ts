@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../../models/Product'
 import { Observable, of, BehaviorSubject} from 'rxjs'
-import { find, map } from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
