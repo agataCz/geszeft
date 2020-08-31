@@ -42,10 +42,6 @@ export class ValidationComponent implements OnInit, OnChanges {
     {
        this.message = `Field must be maximum: ${validationErrorsCurrent.maxlength.requiredLength} characters long.`
     }
-    if(validationErrorsCurrent.maxlength)
-    {
-       this.message = `Wrong field format: ${validationErrorsCurrent.maxlength.requiredLength} characters long.`
-    }
   }
 
 }
