@@ -1,17 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../../models/Product'
-import { Observable, of, BehaviorSubject} from 'rxjs'
+import { Observable, of, BehaviorSubject, interval, Subscription, Subject} from 'rxjs'
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  private subscription: Subscription;
   private productsUrl = 'api/products';
   private _products = new BehaviorSubject<[Product[], number]>([[],0]);
+  private _allProducts = new BehaviorSubject<Product[]>([]);
+  private _randomProducts = new BehaviorSubject<Product[]>([]);
   private dataStore: { products$ : Product[], productsCount$ : number } = { products$ : [], productsCount$: 0 };
 
-  constructor(private httpClient: HttpClient,) { }
+  constructor(private httpClient: HttpClient) {
+       const source = interval(1000);
+       this.subscription = source.subscribe(val => this.generateRandomProducts());
+       this.httpClient.get<Product[]>(this.productsUrl).subscribe(p=>this._allProducts.next(p));
+   }
+
+   generateRandomProducts()
+   {
+     const shuffled = this._allProducts.value.sort(() => Math.random() - Math.random());
+     this._randomProducts.next(shuffled.slice(0, 3));
+   }
+
+   getRandomProducts()
+   {
+      return this._randomProducts.asObservable();
+   }
 
   getAllProducts(): Observable<[Product[], number]>{
     return this._products.asObservable() ;

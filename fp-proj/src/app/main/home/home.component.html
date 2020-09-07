@@ -1,1 +1,17 @@
 <h2>Our products</h2>
+
+  <ul class="list-group list-group-horizontal">
+    <div *ngFor="let product of products$ | async" >
+      <div class="card shadow m-3 p-3 w-100">
+        <div class="col-sm">{{product.name}}</div>
+        <div class="col-sm">{{product.price}}</div>
+        <div class="col-sm">{{product.description}}</div>
+      </div>
+
+    </div>
+</ul>
+  <div class="container-fluid">
+  <div class="d-flex flex-row justify-content-between">
+
+  </div>
+</div>
