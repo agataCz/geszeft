@@ -6,7 +6,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { NavigationComponent } from './navigation/navigation.component';
 import { SharedModule } from '../shared/SharedModule'
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProductFilterComponent } from './product-filter/product-filter.component'
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms'
     HomeComponent,
     ContactComponent,
     PageNotFoundComponent,
-    NavigationComponent
+    NavigationComponent,
+    ProductFilterComponent
   ],
 
   imports: [
@@ -28,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms'
     NavigationComponent,
     HomeComponent,
     PageNotFoundComponent,
-    ContactComponent]
+    ContactComponent,
+    ProductFilterComponent]
 })
 export class MainModule { }

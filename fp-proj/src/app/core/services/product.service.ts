@@ -18,9 +18,10 @@ export class ProductService {
     return this._products.asObservable();
   }
 
-  fetchProducts()
+  fetchProducts(searchValue: string)
   {
-    this.httpClient.get<Product[]>(this.productsUrl).subscribe(
+    const url = `${this.productsUrl}?q=${searchValue}`;
+    this.httpClient.get<Product[]>(url).subscribe(
       data => {
         this.dataStore.products$ = data;
         this._products.next(Object.assign({}, this.dataStore).products$)

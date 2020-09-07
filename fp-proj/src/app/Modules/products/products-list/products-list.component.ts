@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Product } from '../../../models/Product'
 import { LoadingService } from '../../../core/services/loading.service'
 import { ProductService } from '../../../core/services/product.service'
-import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { Observable, fromEvent } from 'rxjs';
+import { shareReplay, debounceTime } from 'rxjs/operators';
+import { ProductFilterComponent } from 'src/app/main/product-filter/product-filter.component';
 
 @Component({
   selector: 'app-products-list',
@@ -12,7 +13,11 @@ import { shareReplay } from 'rxjs/operators';
 })
 export class ProductsListComponent implements OnInit {
 
+
+  @ViewChild(ProductFilterComponent) productFilter : ProductFilterComponent
+
   products$: Observable<Product[]>;
+  searchText;
 
    constructor(
     public loadingService: LoadingService,
@@ -20,7 +25,7 @@ export class ProductsListComponent implements OnInit {
   ) {
 
     this.products$= this.productService.getAllProducts().pipe(shareReplay());
-    this.productService.fetchProducts();
+    this.productService.fetchProducts(``);
   }
 
   ngOnInit(): void {
@@ -35,5 +40,9 @@ export class ProductsListComponent implements OnInit {
 
   getProducts(){
     this.productService.getAllProducts
+  }
+
+  onSearch(){
+    this.productService.fetchProducts(this.productFilter.searchValue);
   }
 }
