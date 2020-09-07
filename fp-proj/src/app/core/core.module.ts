@@ -4,13 +4,15 @@ import { ProductService} from './services/product.service'
 import { LoadingService } from './services/loading.service'
 import { ContactService } from './services/contact.service'
 import { HttpClientModule } from '@angular/common/http'
+import { PaginationModule } from 'ngx-bootstrap/pagination'
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    PaginationModule.forRoot()
   ],
   providers:[
     ProductService,

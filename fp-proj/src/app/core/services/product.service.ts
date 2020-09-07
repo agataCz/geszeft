@@ -8,23 +8,31 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductService {
   private productsUrl = 'api/products';
-  private _products = new BehaviorSubject<Product[]>([]);
-  readonly products$ = this._products.asObservable();
-  private dataStore: { products$ : Product[] } = { products$ : [] };
+  private _products = new BehaviorSubject<[Product[], number]>([[],0]);
+  private dataStore: { products$ : Product[], productsCount$ : number } = { products$ : [], productsCount$: 0 };
 
   constructor(private httpClient: HttpClient,) { }
 
-  getAllProducts(): Observable<Product[]>{
-    return this._products.asObservable();
+  getAllProducts(): Observable<[Product[], number]>{
+    return this._products.asObservable() ;
   }
 
-  fetchProducts(searchValue: string)
+  fetchProducts(searchValue: string, pageNumber: number, pageLimit: number)
   {
-    const url = `${this.productsUrl}?q=${searchValue}`;
-    this.httpClient.get<Product[]>(url).subscribe(
+    var url = '';
+    if(searchValue)
+   {
+     url = `${this.productsUrl}?q=${searchValue}&_page=${pageNumber}&_limit=${pageLimit}`;
+   }
+    else
+    {
+      url = `${this.productsUrl}?_page=${pageNumber}&_limit=${pageLimit}`;
+    }
+    this.httpClient.get<Product[]>(url, {observe: 'response'}).subscribe(
       data => {
-        this.dataStore.products$ = data;
-        this._products.next(Object.assign({}, this.dataStore).products$)
+        this.dataStore.products$ = data.body;
+        this.dataStore.productsCount$ = +data.headers.get('X-Total-Count');
+        this._products.next([Object.assign({}, this.dataStore).products$, this.dataStore.productsCount$ ])
       }
     );
   }

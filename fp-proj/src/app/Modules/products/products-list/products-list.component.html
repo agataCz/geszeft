@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products$ | async" [ngClass]="{'text-danger': isPriceValid(product.price) }">
+        <tr *ngFor="let product of products" [ngClass]="{'text-danger': isPriceValid(product.price) }">
           <td>{{ product.id }}</td>
           <td> {{ product.name }}</td>
           <td> {{ product.price | currency }}</td>
@@ -24,5 +24,7 @@
         </tr>
       </tbody>
     </table>
+
+    <pagination [totalItems]="productsCount" [itemsPerPage]="pageLimit" (pageChanged)="pageChanged($event)"></pagination>
   </div>
 </ng-template>

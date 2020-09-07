@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Product } from '../../../models/Product'
 import { LoadingService } from '../../../core/services/loading.service'
 import { ProductService } from '../../../core/services/product.service'
-import { Observable, fromEvent } from 'rxjs';
-import { shareReplay, debounceTime } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { shareReplay, takeUntil } from 'rxjs/operators';
 import { ProductFilterComponent } from 'src/app/main/product-filter/product-filter.component';
 
 @Component({
@@ -11,21 +11,30 @@ import { ProductFilterComponent } from 'src/app/main/product-filter/product-filt
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss']
 })
-export class ProductsListComponent implements OnInit {
+export class ProductsListComponent implements OnInit, OnDestroy {
 
 
   @ViewChild(ProductFilterComponent) productFilter : ProductFilterComponent
 
-  products$: Observable<Product[]>;
-  searchText;
+  products: Product[];
+  productsCount: number
+  searchText: string;
+  pageLimit: number = 5;
+
+  private unsubscribe$ = new Subject<void>();
+  currentPage = 1;
 
    constructor(
     public loadingService: LoadingService,
     private productService: ProductService
   ) {
 
-    this.products$= this.productService.getAllProducts().pipe(shareReplay());
-    this.productService.fetchProducts(``);
+    this.productService.getAllProducts().pipe(shareReplay(), takeUntil(this.unsubscribe$)).subscribe(resp=>{
+      this.products = resp[0],
+      this.productsCount = resp[1],
+      console.log(resp[1])
+    });
+    this.productService.fetchProducts(``, 1, this.pageLimit);
   }
 
   ngOnInit(): void {
@@ -38,11 +47,17 @@ export class ProductsListComponent implements OnInit {
     return price === 0
   }
 
-  getProducts(){
-    this.productService.getAllProducts
+  onSearch(){
+    this.productService.fetchProducts(this.productFilter.searchValue, 1, this.pageLimit);
   }
 
-  onSearch(){
-    this.productService.fetchProducts(this.productFilter.searchValue);
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  pageChanged(event: any): void {
+    const page = event.page;
+    this.productService.fetchProducts(this.productFilter.searchValue, page, this.pageLimit);
   }
 }

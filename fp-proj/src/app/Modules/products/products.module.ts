@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { SharedModule } from '../../shared/SharedModule'
 
 import { ProductsRoutingModule } from './products-routing.module';
@@ -16,7 +17,8 @@ import { MainModule } from 'src/app/main/main.module';
     ProductsRoutingModule,
     SharedModule,
     CoreModule,
-    MainModule
+    MainModule,
+    PaginationModule
   ]
 })
 export class ProductsModule { }
