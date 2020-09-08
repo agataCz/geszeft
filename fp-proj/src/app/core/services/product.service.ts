@@ -31,9 +31,6 @@ export class ProductService {
       return this._randomProducts.asObservable();
    }
 
-  getProducts(): Observable<[Product[], number]>{
-    return this._products.asObservable() ;
-  }
   fetchRandomProducts()
   {
     this.httpClient.get<Product[]>(this.productsUrl).subscribe(data=>
@@ -41,6 +38,10 @@ export class ProductService {
         this._allProducts.next(data);
         this.generateRandomProducts();
       });
+  }
+
+  getProducts(): Observable<[Product[], number]>{
+    return this._products.asObservable() ;
   }
 
   fetchProducts(searchValue: string, pageNumber: number, pageLimit: number)
