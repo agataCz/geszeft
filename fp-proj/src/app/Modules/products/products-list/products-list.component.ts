@@ -29,7 +29,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     private productService: ProductService
   ) {
 
-    this.productService.getAllProducts().pipe(shareReplay(), takeUntil(this.unsubscribe$)).subscribe(resp=>{
+    this.productService.getProducts().pipe(shareReplay(), takeUntil(this.unsubscribe$)).subscribe(resp=>{
       this.products = resp[0],
       this.productsCount = resp[1],
       console.log(resp[1])

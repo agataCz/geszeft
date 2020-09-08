@@ -15,9 +15,8 @@ export class ProductService {
   private dataStore: { products$ : Product[], productsCount$ : number } = { products$ : [], productsCount$: 0 };
 
   constructor(private httpClient: HttpClient) {
-       const source = interval(1000);
+       const source = interval(10000);
        this.subscription = source.subscribe(val => this.generateRandomProducts());
-       this.httpClient.get<Product[]>(this.productsUrl).subscribe(p=>this._allProducts.next(p));
    }
 
    generateRandomProducts()
@@ -28,11 +27,20 @@ export class ProductService {
 
    getRandomProducts()
    {
+      this.generateRandomProducts();
       return this._randomProducts.asObservable();
    }
 
-  getAllProducts(): Observable<[Product[], number]>{
+  getProducts(): Observable<[Product[], number]>{
     return this._products.asObservable() ;
+  }
+  fetchRandomProducts()
+  {
+    this.httpClient.get<Product[]>(this.productsUrl).subscribe(data=>
+      {
+        this._allProducts.next(data);
+        this.generateRandomProducts();
+      });
   }
 
   fetchProducts(searchValue: string, pageNumber: number, pageLimit: number)

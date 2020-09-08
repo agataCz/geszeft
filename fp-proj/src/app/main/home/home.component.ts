@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/Product';
 import { ProductService } from '../../core/services/product.service'
+import { shareReplay } from 'rxjs/operators';
 
 
 @Component({
@@ -13,9 +14,9 @@ export class HomeComponent implements OnInit {
 
   products$:  Observable<Product[]>;
 
-  constructor(productService: ProductService) {
-
-    this.products$ = productService.getRandomProducts();
+  constructor(private productService: ProductService) {
+    this.products$ =  this.productService.getRandomProducts().pipe(shareReplay());
+    this.productService.fetchRandomProducts();
    }
 
   ngOnInit(): void {
