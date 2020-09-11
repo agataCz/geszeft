@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'products', loadChildren: () => import('./Modules/products/products.module').then(m => m.ProductsModule)},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'admin', loadChildren: () => import('./Modules/admin/admin.module').then(m => m.AdminModule) },
   { path: '**', component: PageNotFoundComponent }
 ];
 

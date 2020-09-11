@@ -14,7 +14,9 @@ export class HomeComponent implements OnInit {
 
   products$:  Observable<Product[]>;
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService
+    ) {
     this.products$ =  this.productService.getRandomProducts().pipe(shareReplay());
     this.productService.fetchRandomProducts();
    }

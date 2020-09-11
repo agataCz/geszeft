@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Contact } from '../../models/Contact'
@@ -10,6 +10,7 @@ import { Contact } from '../../models/Contact'
 })
 export class ContactService {
   private contactUrl = 'api/contact';
+  private _messages = new BehaviorSubject<Contact[]>([]);
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -31,5 +32,12 @@ export class ContactService {
 
       return of(result as T);
     };
+  }
+  getMessages(): Observable<Contact[]>{
+    return this._messages.asObservable();
+  }
+
+  fetchMessages(){
+    this.httpClient.get<Contact[]>(this.contactUrl).subscribe(m => this._messages.next(m));
   }
 }

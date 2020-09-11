@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthorizationService } from '../../core/services/authorization.service'
+import { User } from '../../models/User'
 
 @Component({
   selector: 'geszeft-navigation',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  user: User;
+  constructor(
+    public authorizationService: AuthorizationService
+  ) {
   }
 
+  ngOnInit(): void {
+      this.authorizationService.getUser().subscribe(u=>{
+      this.user = u;
+    })
+  }
+
+  Login(){
+    this.authorizationService.Login();
+
+  }
+
+  Logout(){
+    this.authorizationService.Logout();
+  }
 }
