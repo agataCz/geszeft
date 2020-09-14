@@ -3,6 +3,7 @@
 </div>
 <ng-template #elseBlock>
   <div class="container" style="margin-top: 20px;">
+    <button class="btn btn-danger mb-2" routerLink="/admin/products/add">Add new product</button>
     <geszeft-product-filter (search) = "onSearch()"></geszeft-product-filter>
     <table class="table table-hover">
       <thead>
@@ -20,6 +21,7 @@
           <td> {{ product.price | currency }}</td>
           <td>
             <button class="btn btn-primary" routerLink="{{product.id}}"> Show details</button>
+            <button class="btn btn-danger" (click)="onEditClick(product)">Edit</button>
           </td>
         </tr>
       </tbody>

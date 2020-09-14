@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../../models/Product'
 import { Observable, of, BehaviorSubject, interval, Subscription, Subject} from 'rxjs'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,9 @@ export class ProductService {
   private _allProducts = new BehaviorSubject<Product[]>([]);
   private _randomProducts = new BehaviorSubject<Product[]>([]);
   private dataStore: { products$ : Product[], productsCount$ : number } = { products$ : [], productsCount$: 0 };
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(private httpClient: HttpClient) {
        const source = interval(10000);
@@ -68,4 +72,10 @@ export class ProductService {
     const url = `${this.productsUrl}/${id}`
     return this.httpClient.get<Product>(url);
   }
+
+// updateProduct(product: Product): Observable<any> {
+//   return this.httpClient.put(this.productsUrl, product, this.httpOptions).pipe(
+//     tap(_ => console.log(`Updated product id=${product.id}`))
+//    )
+//   );
 }

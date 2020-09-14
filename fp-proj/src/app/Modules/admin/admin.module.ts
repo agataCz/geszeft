@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../shared/SharedModule'
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -13,7 +15,9 @@ import { MessagesComponent } from './messages/messages.component';
   declarations: [AdminComponent, ProductEditComponent, ProductAddComponent, ProductFormComponent, MessagesComponent],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

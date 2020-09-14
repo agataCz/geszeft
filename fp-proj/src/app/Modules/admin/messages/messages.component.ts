@@ -13,6 +13,7 @@ import { shareReplay } from 'rxjs/operators';
 export class MessagesComponent implements OnInit {
 
   messages$: Observable<Contact[]>;
+  message: string;
 
   constructor(
     private contactService: ContactService
@@ -22,6 +23,10 @@ export class MessagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onClicked(message: string){
+    this.message = message;
   }
 
 }

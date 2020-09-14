@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Product } from 'src/app/models/Product';
 
 @Component({
   selector: 'geszeft-product-add',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductAddComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(){}
 
   ngOnInit(): void {
   }
+
+  onSave(product: Product){
+    }
 
 }
