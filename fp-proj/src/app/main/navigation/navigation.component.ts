@@ -21,12 +21,12 @@ export class NavigationComponent implements OnInit {
     })
   }
 
-  Login(){
-    this.authorizationService.Login();
+  login(){
+    this.authorizationService.login();
 
   }
 
-  Logout(){
-    this.authorizationService.Logout();
+  logout(){
+    this.authorizationService.logout();
   }
 }

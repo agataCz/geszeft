@@ -5,7 +5,7 @@ export const authCodeFlowConfig: AuthConfig = {
   issuer: 'https://dev-ddx0-jh2.eu.auth0.com',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.origin + '/home',
+  redirectUri: window.location.origin,
 
   // The SPA's id. The SPA is registerd with this id at the auth-server
   // clientId: 'server.code',
@@ -28,4 +28,7 @@ export const authCodeFlowConfig: AuthConfig = {
   showDebugInformation: true,
 
   skipIssuerCheck: true,
+
+  logoutUrl: 'https://dev-ddx0-jh2.eu.auth0.com/v2/logout',
+
 }

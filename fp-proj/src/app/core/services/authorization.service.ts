@@ -1,61 +1,87 @@
 import { Injectable } from '@angular/core';
-import { OAuthService, UserInfo, OAuthEvent, EventType } from 'angular-oauth2-oidc';
-import { HttpClient } from '@angular/common/http';
+import { OAuthService, OAuthEvent } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { authCodeFlowConfig } from '../authCodeFlowConfig';
 
-import {User} from '../../models/User'
+import { User } from '../../models/User';
+import { filter } from 'rxjs/operators';
+import { NavigationEnd, NavigationStart, Router, RouterEvent} from '@angular/router';
+import { LoadingService } from './loading.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 
 export class AuthorizationService {
-
   private user = new BehaviorSubject<User>(null);
   user$ = this.user.asObservable();
 
-  loggedIn: boolean
-  constructor( private oauthService: OAuthService,
-    private httpClient: HttpClient) {
-      this.oauthService.events.subscribe(({ type }: OAuthEvent) => {
-              this.FetchUser(type)
-      }
+  loggedIn: boolean;
+  constructor(
+    private oauthService: OAuthService,
+    private loadingService: LoadingService,
+    router: Router
+  ) {
+    loadingService.loading = false;
+    router.events.subscribe((event: RouterEvent): void =>
+      this.naviStart(event, loadingService)
     );
-  }
 
-  private FetchUser(type: EventType){
-    switch (type) {
-      case 'token_received':
-        {
-          // var claims = this.oauthService.getIdentityClaims();
-          // this.user.next(<User> {name: claims.nickname})
-
-           this.oauthService.loadUserProfile().then(u => {
-             this.user.next(<User> {name: u.nickname})})
-          break;
-
-
-        }
-      case 'logout':
-        {
-          this.user.next(null)
-          break;
-        }
+    this.oauthService.configure(authCodeFlowConfig);
+    this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+      if (this.oauthService.hasValidAccessToken()) {
+        this.fetchUser();
       }
-}
+    });
 
-  Login()
-  {
-   this.oauthService.initImplicitFlow();
+    this.oauthService.events
+      .pipe(
+        filter(
+          (e) => e.type === 'token_received' || e.type === 'token_refreshed'
+        )
+      )
+      .subscribe(({ type }: OAuthEvent) => {
+        this.fetchUser();
+      });
+
+    this.oauthService.events
+      .pipe(
+        filter((e) => e.type === 'logout' || e.type === 'session_terminated')
+      )
+      .subscribe(({ type }: OAuthEvent) => {
+        this.user.next(null);
+      });
   }
 
-  Logout()
-  {
-    this.oauthService.logOut();
+  private fetchUser(){
+    let claims: any = this.oauthService.getIdentityClaims();
+
+    if(claims){
+      this.user.next(<User>{ name: claims.nickname });
+    }
+    else{
+      this.user.next(null);
+    }
   }
 
-  public getUser() : Observable<User>{
+  naviStart(event: RouterEvent, loadingService: LoadingService): void {
+    if (event instanceof NavigationStart) {
+      loadingService.loading = true;
+    } else if (event instanceof NavigationEnd) {
+      loadingService.loading = false;
+    }
+  }
+
+  login() {
+    this.oauthService.initCodeFlow();
+  }
+
+  logout() {
+    this.oauthService.revokeTokenAndLogout({
+      client_id: this.oauthService.clientId,
+      returnTo: this.oauthService.redirectUri
+    }, true);
+  }
+
+  public getUser(): Observable<User> {
     return this.user.asObservable();
   }
 }
-

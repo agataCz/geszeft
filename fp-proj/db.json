@@ -58,6 +58,11 @@
       "email": "1@1.pl",
       "message": "1111",
       "id": 8
+    },
+    {
+      "email": "agata.czupryn@gmail.com",
+      "message": "m4444",
+      "id": 9
     }
   ],
   "products": [
@@ -132,6 +137,18 @@
       "name": "Product #12",
       "description": "Product #6 description",
       "price": 26.23
+    },
+    {
+      "name": "new",
+      "description": "new",
+      "price": "1",
+      "id": 13
+    },
+    {
+      "name": "new2",
+      "description": "new2",
+      "price": "4",
+      "id": 14
     }
   ]
 }

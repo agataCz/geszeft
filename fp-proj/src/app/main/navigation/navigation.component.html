@@ -4,9 +4,9 @@
   <a routerLink="/contact"><h4>Contact</h4></a>
 
   <div class="topnav-right">
-  <button class="btn btn-secondary" (click)="Login()" *ngIf="!user">Log In</button>
+  <button class="btn btn-secondary" (click)="login()" *ngIf="!user">Log In</button>
 
   <div class="text-white mr-2" *ngIf="user">Hello, {{user.name}}</div>
-  <button class="btn btn-danger" (click)="Logout()" *ngIf="user">Log Out</button>
+  <button class="btn btn-danger" (click)="logout()" *ngIf="user">Log Out</button>
 </div>
 </nav>
