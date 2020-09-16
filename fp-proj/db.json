@@ -53,13 +53,33 @@
       "email": "agata.czupryn@gmail.com",
       "message": "trester",
       "id": 7
+    },
+    {
+      "email": "1@1.pl",
+      "message": "1111",
+      "id": 8
+    },
+    {
+      "email": "agata.czupryn@gmail.com",
+      "message": "m4444",
+      "id": 9
+    },
+    {
+      "email": "agata.czupryn@fp.com",
+      "message": "sdsds",
+      "id": 10
+    },
+    {
+      "email": "test@test.pl",
+      "message": "rererere",
+      "id": 11
     }
   ],
   "products": [
     {
-      "name": "Product #12",
+      "name": "Product #new",
       "description": "Product #1 description",
-      "price": 1.23,
+      "price": "1.23",
       "id": 1
     },
     {
@@ -127,6 +147,30 @@
       "name": "Product #12",
       "description": "Product #6 description",
       "price": 26.23
+    },
+    {
+      "name": "new",
+      "description": "new",
+      "price": "1",
+      "id": 13
+    },
+    {
+      "name": "new2",
+      "description": "new2",
+      "price": "4",
+      "id": 14
+    },
+    {
+      "name": "product14",
+      "description": "14",
+      "price": "14",
+      "id": 15
+    },
+    {
+      "name": "16",
+      "description": "16",
+      "price": "16",
+      "id": 16
     }
   ]
 }

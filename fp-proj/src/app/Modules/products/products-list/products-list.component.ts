@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Product } from '../../../models/Product'
 import { LoadingService } from '../../../core/services/loading.service'
 import { ProductService } from '../../../core/services/product.service'
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { shareReplay, takeUntil } from 'rxjs/operators';
 import { ProductFilterComponent } from 'src/app/main/product-filter/product-filter.component';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-products-list',
@@ -26,7 +27,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
    constructor(
     public loadingService: LoadingService,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) {
 
     this.productService.getProducts().pipe(shareReplay(), takeUntil(this.unsubscribe$)).subscribe(resp=>{
@@ -59,5 +61,19 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   pageChanged(event: any): void {
     const page = event.page;
     this.productService.fetchProducts(this.productFilter.searchValue, page, this.pageLimit);
+  }
+
+  onEditClick(product: Product)
+  {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          name: product.name,
+          id: product.id,
+          description: product.description,
+          price: product.price
+      },
+    }
+
+    this.router.navigate(['./admin/products/edit'], navigationExtras);
   }
 }

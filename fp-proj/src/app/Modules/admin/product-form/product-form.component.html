@@ -1,0 +1,20 @@
+  <div class="shadow card m-3 p-3">
+  <form [formGroup]="productForm" class="ng-pristine" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" class="form-control" formControlName="name">
+      <geszeft-validation *ngIf="name.errors && name.dirty" [errors]="name.errors"></geszeft-validation>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" rows="2" class="form-control" formControlName="description"></textarea>
+      <geszeft-validation *ngIf="description.errors && description.dirty" [errors]="description.errors"></geszeft-validation>
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input id="price" class="form-control" formControlName="price">
+      <geszeft-validation *ngIf="price.errors && price.dirty" [errors]="price.errors"></geszeft-validation>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  </div>

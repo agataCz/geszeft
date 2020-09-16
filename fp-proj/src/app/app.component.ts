@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterEvent, NavigationStart, NavigationEnd } from '@angular/router';
 import { LoadingService } from './core/services/loading.service'
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +12,7 @@ export class AppComponent {
   title = 'fp-proj';
 
   constructor(
-    private loadingService: LoadingService,
+    private oauthService: OAuthService,
     router: Router
-    ) {
-    loadingService.loading = false;
-    router.events.subscribe(
-      (event: RouterEvent): void => this.naviStart(event, loadingService)
-    );
-  }
-
-  naviStart(event: RouterEvent, loadingService: LoadingService): void{
-
-    if (event instanceof NavigationStart) {
-      loadingService.loading = true;
-    }
-      else if (event instanceof NavigationEnd) {
-        loadingService.loading = false;
-      }
-    }
+    ) { }
 }
