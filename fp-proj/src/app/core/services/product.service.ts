@@ -1,19 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../../models/Product';
-import {
-  Observable,
-  of,
-  BehaviorSubject,
-  interval,
-  Subscription,
-  Subject,
-} from 'rxjs';
+import { Observable, of, BehaviorSubject, interval, Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
+
 export class ProductService {
   private subscription: Subscription;
   private productsUrl = 'api/products';
@@ -82,18 +74,20 @@ export class ProductService {
     return this.httpClient.get<Product>(url);
   }
 
-  // updateProduct(product: Product): Observable<any> {
-  //   return this.httpClient.put(this.productsUrl, product, this.httpOptions).pipe(
-  //     tap(_ => console.log(`Updated product id=${product.id}`))
-  //    )
-  //   );
+  updateProduct(product: Product): Observable<any> {
+    const url = `${this.productsUrl}/${product.id}`;
+    return this.httpClient.put(url, product, this.httpOptions).pipe(
+      tap((_) => console.log(`Updated product id=${product.id}`)),
+      catchError(this.handleError<Product>('updateProduct'))
+    );
+  }
 
   addProduct(product: Product): Observable<Product> {
     return this.httpClient
       .post<Product>(this.productsUrl, product, this.httpOptions)
       .pipe(
         tap((product: Product) =>
-          console.log(`added product w/ id=${product.id}`),
+          console.log(`Added product w/ id=${product.id}`)
         ),
         catchError(this.handleError<Product>('addProduct'))
       );

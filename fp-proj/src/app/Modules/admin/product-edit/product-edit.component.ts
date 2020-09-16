@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ProductService } from 'src/app/core/services/product.service';
 import { Product } from 'src/app/models/Product';
-import { ProductFormComponent } from '../product-form/product-form.component';
 
 @Component({
   selector: 'geszeft-product-edit',
@@ -11,9 +11,12 @@ import { ProductFormComponent } from '../product-form/product-form.component';
 export class ProductEditComponent implements OnInit {
 
   product: Product;
-  @ViewChild(ProductFormComponent) productForm : ProductFormComponent
+  requestSended: boolean = false;
+  requestSucceeded: boolean = false;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService) {
     this.route.queryParams.subscribe(param => {
       this.product = {
         description: param['description'],
@@ -27,6 +30,15 @@ export class ProductEditComponent implements OnInit {
   }
 
   onSave(product: Product){
+    this.productService.updateProduct(product).subscribe((result) => {
+      this.requestSended = true;
+      if (result) {
+        this.requestSucceeded = true;
+      } else {
+        this.requestSucceeded = false;
+      }
+    })
+
   }
 
 }

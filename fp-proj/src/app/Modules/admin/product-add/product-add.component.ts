@@ -10,17 +10,19 @@ import { ProductService } from '../../../core/services/product.service';
 export class ProductAddComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
+  requestSended: boolean = false;
+  requestSucceeded: boolean = false;
+
   ngOnInit(): void {}
 
   onSave(product: Product) {
-    let result;
-    this.productService.addProduct(product).subscribe((t) => {
-      if (t) {
-        console.log('success');
+    this.productService.addProduct(product).subscribe((result) => {
+      this.requestSended = true;
+      if (result) {
+        this.requestSucceeded = true;
       } else {
-        console.log('failure');
+        this.requestSucceeded = false;
       }
     })
-
   }
 }

@@ -1,1 +1,11 @@
-<geszeft-product-form (save)="onSave($event)"></geszeft-product-form>
+<div *ngIf="requestSended; else elseBlock">
+  <div *ngIf="requestSucceeded" class="alert alert-success">
+    Product has been updated.
+  </div>
+  <div *ngIf="!requestSucceeded" class="alert alert-danger">
+    Error. Product was not added see log for more information.
+  </div>
+</div>
+<ng-template #elseBlock>
+  <geszeft-product-form (save)="onSave($event)"></geszeft-product-form>
+</ng-template>

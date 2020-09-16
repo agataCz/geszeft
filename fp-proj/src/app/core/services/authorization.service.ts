@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OAuthService, OAuthEvent } from 'angular-oauth2-oidc';
+import { OAuthService, OAuthEvent, UserInfo } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { authCodeFlowConfig } from '../authCodeFlowConfig';
 
@@ -21,7 +21,12 @@ export class AuthorizationService {
     router: Router
   ) {
     loadingService.loading = false;
-    router.events.subscribe((event: RouterEvent): void =>
+    router.events
+    .pipe(
+      filter(
+        (event) => event instanceof NavigationStart || event instanceof NavigationEnd
+      )
+    ).subscribe((event: RouterEvent): void =>
       this.naviStart(event, loadingService)
     );
 
@@ -53,7 +58,6 @@ export class AuthorizationService {
 
   private fetchUser(){
     let claims: any = this.oauthService.getIdentityClaims();
-
     if(claims){
       this.user.next(<User>{ name: claims.nickname });
     }
@@ -83,5 +87,9 @@ export class AuthorizationService {
 
   public getUser(): Observable<User> {
     return this.user.asObservable();
+  }
+
+  public isTokenValid(): boolean{
+    return this.oauthService.hasValidAccessToken();
   }
 }
