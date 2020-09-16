@@ -1,15 +1,28 @@
-<nav class="navigation">
-  <a routerLink="/"><h4>Home</h4></a>
-  <a routerLink="/products"><h4>Products</h4></a>
-  <a routerLink="/contact"><h4>Contact</h4></a>
-  <div >
-  <a *geszeftRole routerLink="/admin"><h4>Admin</h4></a>
-</div>
+<nav class="navigation" class="navbar navbar-expand navbar-dark bg-primary d-flex justify-content-between">
+  <div class="nav navbar-nav">
+    <a class="nav-item nav-link" routerLink="/">
+      <h4>Home</h4>
+    </a>
+    <a class="nav-item nav-link" routerLink="/products">
+      <h4>Products</h4>
+    </a>
+    <a class="nav-item nav-link" routerLink="/contact">
+      <h4>Contact</h4>
+    </a>
+    <a class="nav-item nav-link" *geszeftRole routerLink="/admin">
+      <h4>Admin</h4>
+    </a>
 
-  <div class="topnav-right">
-  <button class="btn btn-secondary" (click)="login()" *ngIf="!user">Log In</button>
+  </div>
+  <div>
 
-  <div class="text-white mr-2" *ngIf="user">Hello, {{user.name}}</div>
-  <button class="btn btn-danger" (click)="logout()" *ngIf="user">Log Out</button>
-</div>
+    <span class="text-white mr-2" *ngIf="user">Hello, {{user.name}}</span>
+
+    <button class="btn btn-primary">
+      <i class="material-icons">shopping_cart</i>
+      <span class='badge badge-warning' id='lblCartCount'>5</span>
+    </button>
+    <button class="btn btn-secondary" (click)="login()" *ngIf="!user">Log In</button>
+    <button class="btn btn-danger" (click)="logout()" *ngIf="user">Log Out</button>
+  </div>
 </nav>
